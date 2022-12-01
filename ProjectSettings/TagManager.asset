@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bad 1
+  - Hard
+  - Easy
+  - Medium
   layers:
   - Default
   - TransparentFX

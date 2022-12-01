@@ -6,11 +6,11 @@ public class Target : MonoBehaviour
 {
     // Start is called before the first frame update
     private Rigidbody targetRb;
-    private float minSpeed = 12;
+    private float minSpeed = 8;
     private float maxSpeed = 16;
     private float maxTorque = 10;
     private float xRange = 4;
-    private float ySpawnPos = -2;
+    private float ySpawnPos = -1;
     public ParticleSystem explosionParticle;
     private GameManager gameManagerScript;
 
@@ -26,7 +26,7 @@ public class Target : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+           
     }
     Vector3 RandomForce()
     {
@@ -42,16 +42,21 @@ public class Target : MonoBehaviour
     }
 
     private void OnMouseDown() {
-         Destroy(gameObject);
-         Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-         if(gameObject.CompareTag("Bad 1")) {
-            gameManagerScript.UpdateScore(-5);
-         }
-         else {
-            gameManagerScript.UpdateScore(1);
-         }
+        if(gameManagerScript.isGameActive){
+            Destroy(gameObject);
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            if(gameObject.CompareTag("Bad 1")) {
+                gameManagerScript.UpdateScore(-5);
+            }
+            else {
+                gameManagerScript.UpdateScore(1);
+            }
+        }
     }
     private void OnTriggerEnter(Collider other) {
+        if(!gameObject.CompareTag("Bad 1")){
+            gameManagerScript.GameOver();
+        }
         Destroy(gameObject);
     }
 }
